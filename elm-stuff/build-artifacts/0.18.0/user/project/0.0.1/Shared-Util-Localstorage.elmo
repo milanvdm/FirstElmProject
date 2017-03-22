@@ -1,0 +1,19 @@
+var _user$project$Shared_Util_Localstorage$createStorageData = F2(
+	function (key, value) {
+		return {key: key, value: value};
+	});
+var _user$project$Shared_Util_Localstorage$store = _elm_lang$core$Native_Platform.outgoingPort(
+	'store',
+	function (v) {
+		return {key: v.key, value: v.value};
+	});
+var _user$project$Shared_Util_Localstorage$retrieve = _elm_lang$core$Native_Platform.outgoingPort(
+	'retrieve',
+	function (v) {
+		return v;
+	});
+var _user$project$Shared_Util_Localstorage$suggestions = _elm_lang$core$Native_Platform.incomingPort('suggestions', _elm_lang$core$Json_Decode$string);
+var _user$project$Shared_Util_Localstorage$StorageData = F2(
+	function (a, b) {
+		return {key: a, value: b};
+	});

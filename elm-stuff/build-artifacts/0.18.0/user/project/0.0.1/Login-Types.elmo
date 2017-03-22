@@ -1,0 +1,37 @@
+var _user$project$Login_Types$Model = function (a) {
+	return function (b) {
+		return function (c) {
+			return function (d) {
+				return function (e) {
+					return function (f) {
+						return function (g) {
+							return function (h) {
+								return function (i) {
+									return function (j) {
+										return {mdl: a, username: b, password: c, showPassword: d, usernameTouched: e, usernameError: f, passwordTouched: g, passwordError: h, loginSucces: i, loginAttempts: j};
+									};
+								};
+							};
+						};
+					};
+				};
+			};
+		};
+	};
+};
+var _user$project$Login_Types$Mdl = function (a) {
+	return {ctor: 'Mdl', _0: a};
+};
+var _user$project$Login_Types$Authentication = function (a) {
+	return {ctor: 'Authentication', _0: a};
+};
+var _user$project$Login_Types$SubmitLoginForm = {ctor: 'SubmitLoginForm'};
+var _user$project$Login_Types$ShowPassword = function (a) {
+	return {ctor: 'ShowPassword', _0: a};
+};
+var _user$project$Login_Types$UpdatePassword = function (a) {
+	return {ctor: 'UpdatePassword', _0: a};
+};
+var _user$project$Login_Types$UpdateUsername = function (a) {
+	return {ctor: 'UpdateUsername', _0: a};
+};

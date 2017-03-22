@@ -1,0 +1,11 @@
+var _user$project$App_View$view = function (model) {
+	var _p0 = model.appState;
+	if (_p0.ctor === 'Ready') {
+		return A2(
+			_elm_lang$html$Html$map,
+			_user$project$App_Types$RouterMsg,
+			_user$project$Router_View$view(_p0._0));
+	} else {
+		return _elm_lang$html$Html$text('Loading');
+	}
+};

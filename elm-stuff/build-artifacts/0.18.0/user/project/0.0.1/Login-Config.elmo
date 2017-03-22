@@ -1,0 +1,4 @@
+var _user$project$Login_Config$failedLogin = 'Invalid email or password, are you sure you typed in the right credentials?';
+var _user$project$Login_Config$requiredPassword = 'Please provide a password.';
+var _user$project$Login_Config$validEmail = 'Please provide a valid email.';
+var _user$project$Login_Config$requiredEmail = 'Please provide an email.';

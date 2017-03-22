@@ -1,0 +1,20 @@
+var _user$project$App_Types$Global = function (a) {
+	return {login: a};
+};
+var _user$project$App_Types$Model = F2(
+	function (a, b) {
+		return {appState: a, location: b};
+	});
+var _user$project$App_Types$NoOp = {ctor: 'NoOp'};
+var _user$project$App_Types$RouterMsg = function (a) {
+	return {ctor: 'RouterMsg', _0: a};
+};
+var _user$project$App_Types$UrlChange = function (a) {
+	return {ctor: 'UrlChange', _0: a};
+};
+var _user$project$App_Types$Login = {ctor: 'Login'};
+var _user$project$App_Types$Home = {ctor: 'Home'};
+var _user$project$App_Types$Ready = function (a) {
+	return {ctor: 'Ready', _0: a};
+};
+var _user$project$App_Types$NotReady = {ctor: 'NotReady'};

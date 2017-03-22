@@ -1,0 +1,116 @@
+var _user$project$Login_Update$errorMessage = F3(
+	function (field, messages, validators) {
+		var error = A3(_user$project$Shared_Form_Validation$getErrors, field, messages, validators);
+		var _p0 = error;
+		if (_p0.ctor === 'Nothing') {
+			return '';
+		} else {
+			return _p0._0;
+		}
+	});
+var _user$project$Login_Update$failedLogin = 'Invalid email or password, are you sure you typed in the right credentials?';
+var _user$project$Login_Update$requiredPassword = 'Please provide a password.';
+var _user$project$Login_Update$validEmail = 'Please provide a valid email.';
+var _user$project$Login_Update$requiredEmail = 'Please provide an email.';
+var _user$project$Login_Update$update = F2(
+	function (msg, model) {
+		var _p1 = msg;
+		switch (_p1.ctor) {
+			case 'UpdateUsername':
+				var _p2 = _p1._0;
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							username: _p2,
+							usernameTouched: true,
+							usernameError: A3(
+								_user$project$Login_Update$errorMessage,
+								_p2,
+								{
+									ctor: '::',
+									_0: _user$project$Login_Update$requiredEmail,
+									_1: {
+										ctor: '::',
+										_0: _user$project$Login_Update$validEmail,
+										_1: {ctor: '[]'}
+									}
+								},
+								{
+									ctor: '::',
+									_0: _user$project$Shared_Form_Validation$ifBlank,
+									_1: {
+										ctor: '::',
+										_0: _user$project$Shared_Form_Validation$ifInvalidEmail,
+										_1: {ctor: '[]'}
+									}
+								})
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'UpdatePassword':
+				var _p3 = _p1._0;
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							password: _p3,
+							passwordTouched: true,
+							passwordError: A3(
+								_user$project$Login_Update$errorMessage,
+								_p3,
+								{
+									ctor: '::',
+									_0: _user$project$Login_Update$requiredPassword,
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: _user$project$Shared_Form_Validation$ifBlank,
+									_1: {ctor: '[]'}
+								})
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'ShowPassword':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{showPassword: _p1._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'SubmitLoginForm':
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: A2(_user$project$Login_Rest$authenticateUser, model.username, model.password)
+				};
+			case 'Authentication':
+				if (_p1._0.ctor === 'Ok') {
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{failedLogin: false}),
+						_1: _user$project$Shared_Util_Localstorage$store(
+							A2(_user$project$Shared_Util_Localstorage$createStorageData, 'jwt', _p1._0._0))
+					};
+				} else {
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{failedLogin: true}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				}
+			default:
+				return A3(_debois$elm_mdl$Material$update, _user$project$Login_Messages$Mdl, _p1._0, model);
+		}
+	});
+var _user$project$Login_Update$resetForm = function (model) {
+	return _user$project$Login_Model$emptyModel;
+};

@@ -1,0 +1,4 @@
+var _user$project$LoginModel$model = {mdl: _debois$elm_mdl$Material$model};
+var _user$project$LoginModel$Model = function (a) {
+	return {mdl: a};
+};

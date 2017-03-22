@@ -1,0 +1,16 @@
+var _user$project$Login_Messages$Mdl = function (a) {
+	return {ctor: 'Mdl', _0: a};
+};
+var _user$project$Login_Messages$Authentication = function (a) {
+	return {ctor: 'Authentication', _0: a};
+};
+var _user$project$Login_Messages$SubmitLoginForm = {ctor: 'SubmitLoginForm'};
+var _user$project$Login_Messages$ShowPassword = function (a) {
+	return {ctor: 'ShowPassword', _0: a};
+};
+var _user$project$Login_Messages$UpdatePassword = function (a) {
+	return {ctor: 'UpdatePassword', _0: a};
+};
+var _user$project$Login_Messages$UpdateUsername = function (a) {
+	return {ctor: 'UpdateUsername', _0: a};
+};

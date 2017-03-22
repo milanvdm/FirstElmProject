@@ -1,0 +1,30 @@
+var _user$project$Routing_Helpers$reverseRoute = function (route) {
+	var _p0 = route;
+	if (_p0.ctor === 'SettingsRoute') {
+		return '#/settings';
+	} else {
+		return '#/';
+	}
+};
+var _user$project$Routing_Helpers$NotFoundRoute = {ctor: 'NotFoundRoute'};
+var _user$project$Routing_Helpers$SettingsRoute = {ctor: 'SettingsRoute'};
+var _user$project$Routing_Helpers$HomeRoute = {ctor: 'HomeRoute'};
+var _user$project$Routing_Helpers$routeParser = _evancz$url_parser$UrlParser$oneOf(
+	{
+		ctor: '::',
+		_0: A2(_evancz$url_parser$UrlParser$map, _user$project$Routing_Helpers$HomeRoute, _evancz$url_parser$UrlParser$top),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_evancz$url_parser$UrlParser$map,
+				_user$project$Routing_Helpers$SettingsRoute,
+				_evancz$url_parser$UrlParser$s('settings')),
+			_1: {ctor: '[]'}
+		}
+	});
+var _user$project$Routing_Helpers$parseLocation = function (location) {
+	return A2(
+		_elm_lang$core$Maybe$withDefault,
+		_user$project$Routing_Helpers$NotFoundRoute,
+		A2(_evancz$url_parser$UrlParser$parseHash, _user$project$Routing_Helpers$routeParser, location));
+};

@@ -1,0 +1,4 @@
+var _user$project$Home_Types$Model = function (a) {
+	return {message: a};
+};
+var _user$project$Home_Types$Nothing = {ctor: 'Nothing'};

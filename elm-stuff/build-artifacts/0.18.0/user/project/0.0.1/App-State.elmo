@@ -1,0 +1,59 @@
+var _user$project$App_State$subscriptions = function (model) {
+	return _elm_lang$core$Platform_Sub$none;
+};
+var _user$project$App_State$updateRouter = F2(
+	function (model, routerMsg) {
+		var _p0 = model.appState;
+		if (_p0.ctor === 'Ready') {
+			var _p1 = A2(_user$project$Router_State$update, routerMsg, _p0._0);
+			var nextRouterModel = _p1._0;
+			var routerCmd = _p1._1;
+			return {
+				ctor: '_Tuple2',
+				_0: _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						appState: _user$project$App_Types$Ready(nextRouterModel)
+					}),
+				_1: A2(_elm_lang$core$Platform_Cmd$map, _user$project$App_Types$RouterMsg, routerCmd)
+			};
+		} else {
+			return _elm_lang$core$Native_Utils.crashCase(
+				'App.State',
+				{
+					start: {line: 34, column: 5},
+					end: {line: 45, column: 118}
+				},
+				_p0)('Ooops. We got a sub-component message even though it wasn\'t supposed to be initialized?!?!?');
+		}
+	});
+var _user$project$App_State$update = F2(
+	function (msg, model) {
+		var _p3 = msg;
+		switch (_p3.ctor) {
+			case 'UrlChange':
+				var _p4 = _p3._0;
+				return A2(
+					_user$project$App_State$updateRouter,
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{location: _p4}),
+					_user$project$Router_Types$UrlChange(_p4));
+			case 'RouterMsg':
+				return A2(_user$project$App_State$updateRouter, model, _p3._0);
+			default:
+				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+		}
+	});
+var _user$project$App_State$init = function (location) {
+	var _p5 = _user$project$Router_State$init(location);
+	var initRouterModel = _p5._0;
+	return {
+		ctor: '_Tuple2',
+		_0: {
+			appState: _user$project$App_Types$Ready(initRouterModel),
+			location: location
+		},
+		_1: _elm_lang$core$Platform_Cmd$none
+	};
+};

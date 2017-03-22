@@ -1,0 +1,362 @@
+var _user$project$Login_View$loginButton = function (model) {
+	return A5(
+		_debois$elm_mdl$Material_Button$render,
+		_user$project$Login_Types$Mdl,
+		{
+			ctor: '::',
+			_0: 3,
+			_1: {ctor: '[]'}
+		},
+		model.mdl,
+		{
+			ctor: '::',
+			_0: _debois$elm_mdl$Material_Button$raised,
+			_1: {
+				ctor: '::',
+				_0: _debois$elm_mdl$Material_Button$ripple,
+				_1: {
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Button$colored,
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_debois$elm_mdl$Material_Options$when,
+							!(model.usernameTouched && (_elm_lang$core$String$isEmpty(model.usernameError) && (model.passwordTouched && _elm_lang$core$String$isEmpty(model.passwordError)))),
+							_debois$elm_mdl$Material_Button$disabled),
+						_1: {
+							ctor: '::',
+							_0: _debois$elm_mdl$Material_Options$onClick(_user$project$Login_Types$SubmitLoginForm),
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text('Login'),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$Login_View$passwordIconStyle = {
+	ctor: '::',
+	_0: A2(_debois$elm_mdl$Material_Options$css, 'position', 'absolute'),
+	_1: {
+		ctor: '::',
+		_0: A2(_debois$elm_mdl$Material_Options$css, 'top', '18px'),
+		_1: {
+			ctor: '::',
+			_0: A2(_debois$elm_mdl$Material_Options$css, 'right', '5px'),
+			_1: {
+				ctor: '::',
+				_0: A2(_debois$elm_mdl$Material_Options$css, 'cursor', 'pointer'),
+				_1: {ctor: '[]'}
+			}
+		}
+	}
+};
+var _user$project$Login_View$passwordField = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$style(
+				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'position', _1: 'relative'},
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A5(
+				_debois$elm_mdl$Material_Textfield$render,
+				_user$project$Login_Types$Mdl,
+				{
+					ctor: '::',
+					_0: 1,
+					_1: {ctor: '[]'}
+				},
+				model.mdl,
+				{
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Textfield$label('Password'),
+					_1: {
+						ctor: '::',
+						_0: _debois$elm_mdl$Material_Textfield$floatingLabel,
+						_1: {
+							ctor: '::',
+							_0: model.showPassword ? _debois$elm_mdl$Material_Textfield$text_ : _debois$elm_mdl$Material_Textfield$password,
+							_1: {
+								ctor: '::',
+								_0: _debois$elm_mdl$Material_Textfield$value(model.password),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_debois$elm_mdl$Material_Options$when,
+										!_elm_lang$core$String$isEmpty(model.passwordError),
+										_debois$elm_mdl$Material_Textfield$error(model.passwordError)),
+									_1: {
+										ctor: '::',
+										_0: _debois$elm_mdl$Material_Options$onInput(_user$project$Login_Types$UpdatePassword),
+										_1: {
+											ctor: '::',
+											_0: A2(_debois$elm_mdl$Material_Options$css, 'padding-right', '40px'),
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				{ctor: '[]'}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_debois$elm_mdl$Material_Options$span,
+					_user$project$Login_View$passwordIconStyle,
+					{
+						ctor: '::',
+						_0: A2(
+							_debois$elm_mdl$Material_Icon$view,
+							model.showPassword ? 'visibility' : 'visibility_off',
+							{
+								ctor: '::',
+								_0: A2(
+									_debois$elm_mdl$Material_Tooltip$attach,
+									_user$project$Login_Types$Mdl,
+									{
+										ctor: '::',
+										_0: 2,
+										_1: {ctor: '[]'}
+									}),
+								_1: {
+									ctor: '::',
+									_0: _debois$elm_mdl$Material_Options$onClick(
+										_user$project$Login_Types$ShowPassword(!model.showPassword)),
+									_1: {ctor: '[]'}
+								}
+							}),
+						_1: {
+							ctor: '::',
+							_0: A5(
+								_debois$elm_mdl$Material_Tooltip$render,
+								_user$project$Login_Types$Mdl,
+								{
+									ctor: '::',
+									_0: 2,
+									_1: {ctor: '[]'}
+								},
+								model.mdl,
+								{
+									ctor: '::',
+									_0: _debois$elm_mdl$Material_Tooltip$right,
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text(
+										model.showPassword ? 'Hide password' : 'Show password'),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}
+					}),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$Login_View$emailField = function (model) {
+	return A5(
+		_debois$elm_mdl$Material_Textfield$render,
+		_user$project$Login_Types$Mdl,
+		{
+			ctor: '::',
+			_0: 0,
+			_1: {ctor: '[]'}
+		},
+		model.mdl,
+		{
+			ctor: '::',
+			_0: _debois$elm_mdl$Material_Textfield$label('Email'),
+			_1: {
+				ctor: '::',
+				_0: _debois$elm_mdl$Material_Textfield$floatingLabel,
+				_1: {
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Textfield$value(model.username),
+					_1: {
+						ctor: '::',
+						_0: _debois$elm_mdl$Material_Textfield$email,
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_debois$elm_mdl$Material_Options$when,
+								!_elm_lang$core$String$isEmpty(model.usernameError),
+								_debois$elm_mdl$Material_Textfield$error(model.usernameError)),
+							_1: {
+								ctor: '::',
+								_0: _debois$elm_mdl$Material_Options$onInput(_user$project$Login_Types$UpdateUsername),
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				}
+			}
+		},
+		{ctor: '[]'});
+};
+var _user$project$Login_View$loginForm = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: _user$project$Login_View$emailField(model),
+			_1: {
+				ctor: '::',
+				_0: _user$project$Login_View$passwordField(model),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$Login_View$red = _debois$elm_mdl$Material_Color$text(
+	A2(_debois$elm_mdl$Material_Color$color, _debois$elm_mdl$Material_Color$Red, _debois$elm_mdl$Material_Color$A200));
+var _user$project$Login_View$loginFeedback = A2(
+	_debois$elm_mdl$Material_Card$text,
+	{
+		ctor: '::',
+		_0: _user$project$Login_View$red,
+		_1: {ctor: '[]'}
+	},
+	{
+		ctor: '::',
+		_0: _elm_lang$html$Html$text(_user$project$Login_Config$failedLogin),
+		_1: {ctor: '[]'}
+	});
+var _user$project$Login_View$card = function (model) {
+	return A2(
+		_debois$elm_mdl$Material_Card$view,
+		{
+			ctor: '::',
+			_0: _debois$elm_mdl$Material_Options$cs('mdl-shadow--6dp'),
+			_1: {ctor: '[]'}
+		},
+		function () {
+			var errorMessage = ((!model.loginSucces) && (_elm_lang$core$Native_Utils.cmp(model.loginAttempts, 0) > 0)) ? {
+				ctor: '::',
+				_0: _user$project$Login_View$loginFeedback,
+				_1: {ctor: '[]'}
+			} : {ctor: '[]'};
+			return A2(
+				_elm_lang$core$Basics_ops['++'],
+				errorMessage,
+				{
+					ctor: '::',
+					_0: A2(
+						_debois$elm_mdl$Material_Card$text,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _user$project$Login_View$loginForm(model),
+							_1: {ctor: '[]'}
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_debois$elm_mdl$Material_Card$actions,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: _user$project$Login_View$loginButton(model),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}
+				});
+		}());
+};
+var _user$project$Login_View$centerHorizontally = _elm_lang$html$Html_Attributes$style(
+	{
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 'display', _1: 'flex'},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'height', _1: 'auto'},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'width', _1: '50vw'},
+				_1: {ctor: '[]'}
+			}
+		}
+	});
+var _user$project$Login_View$centerVertically = _elm_lang$html$Html_Attributes$style(
+	{
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 'flex', _1: '0 0 auto'},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'height', _1: '100vh'},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'display', _1: 'flex'},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'justify-content', _1: 'center'},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'align-items', _1: 'center'},
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		}
+	});
+var _user$project$Login_View$centered = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _user$project$Login_View$centerVertically,
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _user$project$Login_View$centerHorizontally,
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: A2(
+						_debois$elm_mdl$Material_Grid$grid,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: A2(
+								_debois$elm_mdl$Material_Grid$cell,
+								{
+									ctor: '::',
+									_0: _debois$elm_mdl$Material_Grid$align(_debois$elm_mdl$Material_Grid$Middle),
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: _user$project$Login_View$card(model),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$Login_View$view = function (model) {
+	return _user$project$Login_View$centered(model);
+};

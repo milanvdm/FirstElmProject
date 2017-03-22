@@ -1,0 +1,10 @@
+var _user$project$Home_View$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(model.message),
+			_1: {ctor: '[]'}
+		});
+};

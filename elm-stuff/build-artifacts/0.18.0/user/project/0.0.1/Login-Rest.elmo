@@ -1,0 +1,6 @@
+var _user$project$Login_Rest$authenticateUser = F2(
+	function (username, password) {
+		return _user$project$Shared_Util_Mock$send(
+			_user$project$Login_Types$Authentication(
+				_elm_lang$core$Result$Ok('jwt-test-token')));
+	});

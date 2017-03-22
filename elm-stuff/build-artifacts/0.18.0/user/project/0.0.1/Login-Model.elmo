@@ -1,0 +1,6 @@
+var _user$project$Login_Model$emptyModel = {mdl: _debois$elm_mdl$Material$model, username: '', password: '', showPassword: false, usernameTouched: false, usernameError: '', passwordTouched: false, passwordError: '', failedLogin: false};
+var _user$project$Login_Model$model = _user$project$Login_Model$emptyModel;
+var _user$project$Login_Model$Model = F9(
+	function (a, b, c, d, e, f, g, h, i) {
+		return {mdl: a, username: b, password: c, showPassword: d, usernameTouched: e, usernameError: f, passwordTouched: g, passwordError: h, failedLogin: i};
+	});

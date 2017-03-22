@@ -1,0 +1,58 @@
+var _user$project$Shared_Form_Validation$ifInvalid = F3(
+	function (input, test, message) {
+		var passed = test(input);
+		return passed ? _elm_lang$core$Maybe$Just(input) : _elm_lang$core$Maybe$Nothing;
+	});
+var _user$project$Shared_Form_Validation$isValidEmail = function () {
+	var validEmail = _elm_lang$core$Regex$caseInsensitive(
+		_elm_lang$core$Regex$regex('\\S+@\\S+\\.\\S+'));
+	return _elm_lang$core$Regex$contains(validEmail);
+}();
+var _user$project$Shared_Form_Validation$ifInvalidEmail = F2(
+	function (input, message) {
+		return A3(
+			_user$project$Shared_Form_Validation$ifInvalid,
+			input,
+			function (_p0) {
+				return !_user$project$Shared_Form_Validation$isValidEmail(_p0);
+			},
+			message);
+	});
+var _user$project$Shared_Form_Validation$lacksNonWhitespaceChars = _elm_lang$core$Regex$regex('^\\s*$');
+var _user$project$Shared_Form_Validation$ifBlank = F2(
+	function (input, message) {
+		return A3(
+			_user$project$Shared_Form_Validation$ifInvalid,
+			input,
+			_elm_lang$core$Regex$contains(_user$project$Shared_Form_Validation$lacksNonWhitespaceChars),
+			message);
+	});
+var _user$project$Shared_Form_Validation$getErrors = F3(
+	function (input, messages, validators) {
+		getErrors:
+		while (true) {
+			var _p1 = {ctor: '_Tuple2', _0: messages, _1: validators};
+			if (_p1._1.ctor === '[]') {
+				return _elm_lang$core$Maybe$Nothing;
+			} else {
+				if (_p1._0.ctor === '::') {
+					var _p3 = _p1._0._0;
+					var error = A2(_p1._1._0, input, _p3);
+					var _p2 = error;
+					if (_p2.ctor === 'Nothing') {
+						var _v2 = input,
+							_v3 = _p1._0._1,
+							_v4 = _p1._1._1;
+						input = _v2;
+						messages = _v3;
+						validators = _v4;
+						continue getErrors;
+					} else {
+						return _elm_lang$core$Maybe$Just(_p3);
+					}
+				} else {
+					return _elm_lang$core$Maybe$Nothing;
+				}
+			}
+		}
+	});

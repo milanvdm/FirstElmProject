@@ -1,0 +1,36 @@
+var _user$project$Router_Helpers$loginGuard = F2(
+	function (model, route) {
+		var _p0 = route;
+		if (_p0.ctor === 'LoginRoute') {
+			return _user$project$Router_Types$Stay(route);
+		} else {
+			return (!model.loginSucces) ? _user$project$Router_Types$Redirected(_user$project$Router_Types$LoginRoute) : _user$project$Router_Types$Stay(route);
+		}
+	});
+var _user$project$Router_Helpers$routeParser = _evancz$url_parser$UrlParser$oneOf(
+	{
+		ctor: '::',
+		_0: A2(_evancz$url_parser$UrlParser$map, _user$project$Router_Types$HomeRoute, _evancz$url_parser$UrlParser$top),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_evancz$url_parser$UrlParser$map,
+				_user$project$Router_Types$LoginRoute,
+				_evancz$url_parser$UrlParser$s('login')),
+			_1: {ctor: '[]'}
+		}
+	});
+var _user$project$Router_Helpers$parseLocation = function (location) {
+	return A2(
+		_elm_lang$core$Maybe$withDefault,
+		_user$project$Router_Types$NotFoundRoute,
+		A2(_evancz$url_parser$UrlParser$parseHash, _user$project$Router_Helpers$routeParser, location));
+};
+var _user$project$Router_Helpers$reverseRoute = function (route) {
+	var _p1 = route;
+	if (_p1.ctor === 'LoginRoute') {
+		return '#/login';
+	} else {
+		return '#/';
+	}
+};

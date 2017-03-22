@@ -1,0 +1,22 @@
+var _user$project$Router_Types$Model = F3(
+	function (a, b, c) {
+		return {homeModel: a, loginModel: b, route: c};
+	});
+var _user$project$Router_Types$NotFoundRoute = {ctor: 'NotFoundRoute'};
+var _user$project$Router_Types$LoginRoute = {ctor: 'LoginRoute'};
+var _user$project$Router_Types$HomeRoute = {ctor: 'HomeRoute'};
+var _user$project$Router_Types$LoginMsg = function (a) {
+	return {ctor: 'LoginMsg', _0: a};
+};
+var _user$project$Router_Types$HomeMsg = function (a) {
+	return {ctor: 'HomeMsg', _0: a};
+};
+var _user$project$Router_Types$UrlChange = function (a) {
+	return {ctor: 'UrlChange', _0: a};
+};
+var _user$project$Router_Types$Stay = function (a) {
+	return {ctor: 'Stay', _0: a};
+};
+var _user$project$Router_Types$Redirected = function (a) {
+	return {ctor: 'Redirected', _0: a};
+};

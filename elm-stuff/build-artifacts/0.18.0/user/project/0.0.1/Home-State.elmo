@@ -1,0 +1,6 @@
+var _user$project$Home_State$emptyModel = {message: 'Hello Milan'};
+var _user$project$Home_State$init = {ctor: '_Tuple2', _0: _user$project$Home_State$emptyModel, _1: _elm_lang$core$Platform_Cmd$none};
+var _user$project$Home_State$update = F2(
+	function (msg, model) {
+		return _user$project$Home_State$init;
+	});

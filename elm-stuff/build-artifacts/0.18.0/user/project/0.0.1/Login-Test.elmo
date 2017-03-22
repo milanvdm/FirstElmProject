@@ -1,0 +1,7 @@
+var _user$project$Login_Test$main = _elm_lang$html$Html$program(
+	{
+		init: {ctor: '_Tuple2', _0: _user$project$Login_Model$model, _1: _elm_lang$core$Platform_Cmd$none},
+		view: _user$project$Login_View$view,
+		subscriptions: _elm_lang$core$Basics$always(_elm_lang$core$Platform_Sub$none),
+		update: _user$project$Login_Update$update
+	})();
