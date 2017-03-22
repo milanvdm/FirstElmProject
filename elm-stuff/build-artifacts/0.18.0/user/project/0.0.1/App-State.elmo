@@ -48,12 +48,13 @@ var _user$project$App_State$update = F2(
 var _user$project$App_State$init = function (location) {
 	var _p5 = _user$project$Router_State$init(location);
 	var initRouterModel = _p5._0;
+	var routerCmd = _p5._1;
 	return {
 		ctor: '_Tuple2',
 		_0: {
 			appState: _user$project$App_Types$Ready(initRouterModel),
 			location: location
 		},
-		_1: _elm_lang$core$Platform_Cmd$none
+		_1: A2(_elm_lang$core$Platform_Cmd$map, _user$project$App_Types$RouterMsg, routerCmd)
 	};
 };

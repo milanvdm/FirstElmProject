@@ -69,28 +69,20 @@ var _user$project$Router_State$init = function (location) {
 	var _p6 = _user$project$Home_State$init;
 	var homeModel = _p6._0;
 	var homeCmd = _p6._1;
-	return A2(
-		_elm_lang$core$Debug$log,
-		_elm_lang$core$Basics$toString(redirect),
-		function () {
-			var _p7 = redirect;
-			if (_p7.ctor === 'Redirected') {
-				var _p8 = _p7._0;
-				return {
-					ctor: '_Tuple2',
-					_0: {homeModel: homeModel, loginModel: loginModel, route: _p8},
-					_1: A2(
-						_elm_lang$core$Debug$log,
-						_user$project$Router_Helpers$reverseRoute(_p8),
-						_elm_lang$navigation$Navigation$modifyUrl(
-							_user$project$Router_Helpers$reverseRoute(_p8)))
-				};
-			} else {
-				return {
-					ctor: '_Tuple2',
-					_0: {homeModel: homeModel, loginModel: loginModel, route: _p7._0},
-					_1: A2(_elm_lang$core$Platform_Cmd$map, _user$project$Router_Types$HomeMsg, homeCmd)
-				};
-			}
-		}());
+	var _p7 = redirect;
+	if (_p7.ctor === 'Redirected') {
+		var _p8 = _p7._0;
+		return {
+			ctor: '_Tuple2',
+			_0: {homeModel: homeModel, loginModel: loginModel, route: _p8},
+			_1: _elm_lang$navigation$Navigation$modifyUrl(
+				_user$project$Router_Helpers$reverseRoute(_p8))
+		};
+	} else {
+		return {
+			ctor: '_Tuple2',
+			_0: {homeModel: homeModel, loginModel: loginModel, route: _p7._0},
+			_1: A2(_elm_lang$core$Platform_Cmd$map, _user$project$Router_Types$HomeMsg, homeCmd)
+		};
+	}
 };

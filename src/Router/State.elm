@@ -21,7 +21,6 @@ init location =
 
         redirect = loginGuard loginModel (parseLocation location)
     in
-        Debug.log (toString redirect) (
         case redirect of
             Redirected newRoute ->
                 ( { 
@@ -29,7 +28,7 @@ init location =
                     loginModel = loginModel,
                     route = newRoute
                 }
-                , Debug.log (reverseRoute newRoute) (Navigation.modifyUrl (reverseRoute newRoute))
+                , Navigation.modifyUrl (reverseRoute newRoute)
                 )
 
             Stay oldRoute ->
@@ -39,7 +38,7 @@ init location =
                     route = oldRoute
                 }
                 , Cmd.map HomeMsg homeCmd
-                ))
+                )
     
 
 

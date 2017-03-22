@@ -9,12 +9,12 @@ import Router.State
 init : Location -> ( Model, Cmd Msg )
 init location =
     let 
-        (initRouterModel, _) = Router.State.init location
+        (initRouterModel, routerCmd) = Router.State.init location
     in
         ( { appState = Ready initRouterModel
         , location = location
         }
-        , Cmd.none
+        , Cmd.map RouterMsg routerCmd
         )
 
 update : Msg -> Model -> ( Model, Cmd Msg )
