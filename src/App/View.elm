@@ -8,9 +8,9 @@ import Html exposing (..)
 view : Model -> Html Msg
 view model =
     case model.appState of
-        Ready routerModel ->
+        Ready _ routerModel ->
             Router.View.view routerModel
                 |> Html.map RouterMsg
 
-        NotReady ->
+        NotReady _ ->
             text "Loading"

@@ -5,6 +5,7 @@ var _user$project$Router_Types$Model = F3(
 var _user$project$Router_Types$NotFoundRoute = {ctor: 'NotFoundRoute'};
 var _user$project$Router_Types$LoginRoute = {ctor: 'LoginRoute'};
 var _user$project$Router_Types$HomeRoute = {ctor: 'HomeRoute'};
+var _user$project$Router_Types$NoOp = {ctor: 'NoOp'};
 var _user$project$Router_Types$LoginMsg = function (a) {
 	return {ctor: 'LoginMsg', _0: a};
 };

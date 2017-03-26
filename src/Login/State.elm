@@ -6,6 +6,8 @@ import Login.Rest exposing (authenticateUser)
 import Login.Config as Config
 import Router.Helpers
 import Router.Types
+import App.Types exposing (GlobalUpdate(..))
+import Shared.Util.Localstorage as Localstorage
 
 import Navigation
 import Material
@@ -38,7 +40,7 @@ errorMessage field messages validators =
             Just message -> message
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
+update : Msg -> Model -> ( Model, Cmd Msg, GlobalUpdate )
 update msg model =
     case msg of
         UpdateUsername newUsername ->
@@ -49,6 +51,7 @@ update msg model =
                                     [ Config.requiredEmail, Config.validEmail ]
                                     [ ifBlank, ifInvalidEmail ] }
             , Cmd.none
+            , NoUpdate
             )
 
         UpdatePassword newPassword ->
@@ -59,16 +62,19 @@ update msg model =
                                     [ Config.requiredPassword ]
                                     [ ifBlank ] } 
             , Cmd.none
+            , NoUpdate
             )
 
         ShowPassword toShow ->
             ( { model | showPassword = toShow }
             , Cmd.none
+            , NoUpdate
             )
 
         SubmitLoginForm -> 
             ( model
             , authenticateUser model.username model.password
+            , NoUpdate
             )
 
         Authentication (Ok jwt) ->
@@ -78,15 +84,23 @@ update msg model =
             in
               
             ( newModel
-            , Navigation.modifyUrl (Router.Helpers.reverseRoute Router.Types.HomeRoute)
+            , Cmd.batch
+              [ Localstorage.store (Localstorage.createStorageData "jwtToken" jwt)
+              , Navigation.modifyUrl (Router.Helpers.reverseRoute Router.Types.HomeRoute)
+              ]
+            , UpdateJwt jwt
             )
 
         Authentication (Err _) ->
             ( { model | 
                 loginSucces = False,
                 loginAttempts = model.loginAttempts + 1 }
-            , Cmd.none
+            , Localstorage.store (Localstorage.createStorageData "jwtToken" "")
+            , UpdateJwt ""
             )
 
         Mdl message_ ->
-            Material.update Mdl message_ model
+            let
+              (nextModel, nextCmd) = Material.update Mdl message_ model
+            in 
+              (nextModel, nextCmd, NoUpdate)

@@ -3,12 +3,14 @@ var _user$project$Router_State$updateLogin = F2(
 		var _p0 = A2(_user$project$Login_State$update, loginMsg, model.loginModel);
 		var nextLoginModel = _p0._0;
 		var loginCmd = _p0._1;
+		var globalUpdate = _p0._2;
 		return {
-			ctor: '_Tuple2',
+			ctor: '_Tuple3',
 			_0: _elm_lang$core$Native_Utils.update(
 				model,
 				{loginModel: nextLoginModel}),
-			_1: A2(_elm_lang$core$Platform_Cmd$map, _user$project$Router_Types$LoginMsg, loginCmd)
+			_1: A2(_elm_lang$core$Platform_Cmd$map, _user$project$Router_Types$LoginMsg, loginCmd),
+			_2: globalUpdate
 		};
 	});
 var _user$project$Router_State$updateHome = F2(
@@ -17,72 +19,78 @@ var _user$project$Router_State$updateHome = F2(
 		var nextHomeModel = _p1._0;
 		var homeCmd = _p1._1;
 		return {
-			ctor: '_Tuple2',
+			ctor: '_Tuple3',
 			_0: _elm_lang$core$Native_Utils.update(
 				model,
 				{homeModel: nextHomeModel}),
-			_1: A2(_elm_lang$core$Platform_Cmd$map, _user$project$Router_Types$HomeMsg, homeCmd)
+			_1: A2(_elm_lang$core$Platform_Cmd$map, _user$project$Router_Types$HomeMsg, homeCmd),
+			_2: _user$project$App_Types$NoUpdate
 		};
 	});
-var _user$project$Router_State$update = F2(
-	function (msg, model) {
+var _user$project$Router_State$update = F3(
+	function (global, msg, model) {
 		var _p2 = msg;
 		switch (_p2.ctor) {
 			case 'UrlChange':
 				var redirect = A2(
 					_user$project$Router_Helpers$loginGuard,
-					model.loginModel,
+					global,
 					_user$project$Router_Helpers$parseLocation(_p2._0));
 				var _p3 = redirect;
 				if (_p3.ctor === 'Redirected') {
 					var _p4 = _p3._0;
 					return {
-						ctor: '_Tuple2',
+						ctor: '_Tuple3',
 						_0: _elm_lang$core$Native_Utils.update(
 							model,
 							{route: _p4}),
 						_1: _elm_lang$navigation$Navigation$modifyUrl(
-							_user$project$Router_Helpers$reverseRoute(_p4))
+							_user$project$Router_Helpers$reverseRoute(_p4)),
+						_2: _user$project$App_Types$NoUpdate
 					};
 				} else {
 					return {
-						ctor: '_Tuple2',
+						ctor: '_Tuple3',
 						_0: _elm_lang$core$Native_Utils.update(
 							model,
 							{route: _p3._0}),
-						_1: _elm_lang$core$Platform_Cmd$none
+						_1: _elm_lang$core$Platform_Cmd$none,
+						_2: _user$project$App_Types$NoUpdate
 					};
 				}
 			case 'HomeMsg':
 				return A2(_user$project$Router_State$updateHome, model, _p2._0);
-			default:
+			case 'LoginMsg':
 				return A2(_user$project$Router_State$updateLogin, model, _p2._0);
+			default:
+				return {ctor: '_Tuple3', _0: model, _1: _elm_lang$core$Platform_Cmd$none, _2: _user$project$App_Types$NoUpdate};
 		}
 	});
-var _user$project$Router_State$init = function (location) {
-	var _p5 = _user$project$Login_State$init;
-	var loginModel = _p5._0;
-	var redirect = A2(
-		_user$project$Router_Helpers$loginGuard,
-		loginModel,
-		_user$project$Router_Helpers$parseLocation(location));
-	var _p6 = _user$project$Home_State$init;
-	var homeModel = _p6._0;
-	var homeCmd = _p6._1;
-	var _p7 = redirect;
-	if (_p7.ctor === 'Redirected') {
-		var _p8 = _p7._0;
-		return {
-			ctor: '_Tuple2',
-			_0: {homeModel: homeModel, loginModel: loginModel, route: _p8},
-			_1: _elm_lang$navigation$Navigation$modifyUrl(
-				_user$project$Router_Helpers$reverseRoute(_p8))
-		};
-	} else {
-		return {
-			ctor: '_Tuple2',
-			_0: {homeModel: homeModel, loginModel: loginModel, route: _p7._0},
-			_1: A2(_elm_lang$core$Platform_Cmd$map, _user$project$Router_Types$HomeMsg, homeCmd)
-		};
-	}
-};
+var _user$project$Router_State$init = F2(
+	function (global, location) {
+		var redirect = A2(
+			_user$project$Router_Helpers$loginGuard,
+			global,
+			_user$project$Router_Helpers$parseLocation(location));
+		var _p5 = _user$project$Login_State$init;
+		var loginModel = _p5._0;
+		var _p6 = _user$project$Home_State$init;
+		var homeModel = _p6._0;
+		var homeCmd = _p6._1;
+		var _p7 = redirect;
+		if (_p7.ctor === 'Redirected') {
+			var _p8 = _p7._0;
+			return {
+				ctor: '_Tuple2',
+				_0: {homeModel: homeModel, loginModel: loginModel, route: _p8},
+				_1: _elm_lang$navigation$Navigation$modifyUrl(
+					_user$project$Router_Helpers$reverseRoute(_p8))
+			};
+		} else {
+			return {
+				ctor: '_Tuple2',
+				_0: {homeModel: homeModel, loginModel: loginModel, route: _p7._0},
+				_1: A2(_elm_lang$core$Platform_Cmd$map, _user$project$Router_Types$HomeMsg, homeCmd)
+			};
+		}
+	});

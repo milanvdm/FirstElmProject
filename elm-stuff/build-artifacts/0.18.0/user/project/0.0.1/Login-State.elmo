@@ -15,7 +15,7 @@ var _user$project$Login_State$update = F2(
 			case 'UpdateUsername':
 				var _p2 = _p1._0;
 				return {
-					ctor: '_Tuple2',
+					ctor: '_Tuple3',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{
@@ -43,12 +43,13 @@ var _user$project$Login_State$update = F2(
 									}
 								})
 						}),
-					_1: _elm_lang$core$Platform_Cmd$none
+					_1: _elm_lang$core$Platform_Cmd$none,
+					_2: _user$project$App_Types$NoUpdate
 				};
 			case 'UpdatePassword':
 				var _p3 = _p1._0;
 				return {
-					ctor: '_Tuple2',
+					ctor: '_Tuple3',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{
@@ -68,44 +69,64 @@ var _user$project$Login_State$update = F2(
 									_1: {ctor: '[]'}
 								})
 						}),
-					_1: _elm_lang$core$Platform_Cmd$none
+					_1: _elm_lang$core$Platform_Cmd$none,
+					_2: _user$project$App_Types$NoUpdate
 				};
 			case 'ShowPassword':
 				return {
-					ctor: '_Tuple2',
+					ctor: '_Tuple3',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{showPassword: _p1._0}),
-					_1: _elm_lang$core$Platform_Cmd$none
+					_1: _elm_lang$core$Platform_Cmd$none,
+					_2: _user$project$App_Types$NoUpdate
 				};
 			case 'SubmitLoginForm':
 				return {
-					ctor: '_Tuple2',
+					ctor: '_Tuple3',
 					_0: model,
-					_1: A2(_user$project$Login_Rest$authenticateUser, model.username, model.password)
+					_1: A2(_user$project$Login_Rest$authenticateUser, model.username, model.password),
+					_2: _user$project$App_Types$NoUpdate
 				};
 			case 'Authentication':
 				if (_p1._0.ctor === 'Ok') {
+					var _p4 = _p1._0._0;
 					var newModel = _elm_lang$core$Native_Utils.update(
 						model,
 						{loginSucces: true});
 					return {
-						ctor: '_Tuple2',
+						ctor: '_Tuple3',
 						_0: newModel,
-						_1: _elm_lang$navigation$Navigation$modifyUrl(
-							_user$project$Router_Helpers$reverseRoute(_user$project$Router_Types$HomeRoute))
+						_1: _elm_lang$core$Platform_Cmd$batch(
+							{
+								ctor: '::',
+								_0: _user$project$Shared_Util_Localstorage$store(
+									A2(_user$project$Shared_Util_Localstorage$createStorageData, 'jwtToken', _p4)),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$navigation$Navigation$modifyUrl(
+										_user$project$Router_Helpers$reverseRoute(_user$project$Router_Types$HomeRoute)),
+									_1: {ctor: '[]'}
+								}
+							}),
+						_2: _user$project$App_Types$UpdateJwt(_p4)
 					};
 				} else {
 					return {
-						ctor: '_Tuple2',
+						ctor: '_Tuple3',
 						_0: _elm_lang$core$Native_Utils.update(
 							model,
 							{loginSucces: false, loginAttempts: model.loginAttempts + 1}),
-						_1: _elm_lang$core$Platform_Cmd$none
+						_1: _user$project$Shared_Util_Localstorage$store(
+							A2(_user$project$Shared_Util_Localstorage$createStorageData, 'jwtToken', '')),
+						_2: _user$project$App_Types$UpdateJwt('')
 					};
 				}
 			default:
-				return A3(_debois$elm_mdl$Material$update, _user$project$Login_Types$Mdl, _p1._0, model);
+				var _p5 = A3(_debois$elm_mdl$Material$update, _user$project$Login_Types$Mdl, _p1._0, model);
+				var nextModel = _p5._0;
+				var nextCmd = _p5._1;
+				return {ctor: '_Tuple3', _0: nextModel, _1: nextCmd, _2: _user$project$App_Types$NoUpdate};
 		}
 	});
 var _user$project$Login_State$emptyModel = {mdl: _debois$elm_mdl$Material$model, username: '', password: '', showPassword: false, usernameTouched: false, usernameError: '', passwordTouched: false, passwordError: '', loginAttempts: 0, loginSucces: false};

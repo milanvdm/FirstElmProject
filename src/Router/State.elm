@@ -8,10 +8,11 @@ import Login.State
 import Home.State
 import Home.Types
 import Login.Types
+import App.Types exposing (GlobalUpdate(..), Global)
 
 
-init : Location -> ( Model, Cmd Msg )
-init location =
+init : Global -> Location -> ( Model, Cmd Msg )
+init global location =
     let
         ( homeModel, homeCmd ) =
             Home.State.init
@@ -19,7 +20,7 @@ init location =
         ( loginModel, _ ) =
             Login.State.init
 
-        redirect = loginGuard loginModel (parseLocation location)
+        redirect = loginGuard global (parseLocation location)
     in
         case redirect of
             Redirected newRoute ->
@@ -42,22 +43,24 @@ init location =
     
 
 
-update : Msg -> Model -> ( Model, Cmd Msg)
-update msg model =
+update : Global -> Msg -> Model -> ( Model, Cmd Msg, GlobalUpdate)
+update global msg model =
     case msg of
         UrlChange location ->
             let 
-                redirect = loginGuard model.loginModel (parseLocation location)
+                redirect = loginGuard global (parseLocation location)
             in
                 case redirect of
                     Redirected newRoute ->
                         ( { model | route = newRoute }
                         , Navigation.modifyUrl (reverseRoute newRoute)
+                        , NoUpdate
                         )
 
                     Stay oldRoute ->
                         ( { model | route = oldRoute }
                         , Cmd.none
+                        , NoUpdate
                         )
 
         HomeMsg homeMsg ->
@@ -65,9 +68,11 @@ update msg model =
 
         LoginMsg loginMsg ->
             updateLogin model loginMsg
+
+        NoOp -> ( model, Cmd.none, NoUpdate )
     
 
-updateHome : Model -> Home.Types.Msg -> ( Model, Cmd Msg )
+updateHome : Model -> Home.Types.Msg -> ( Model, Cmd Msg, GlobalUpdate )
 updateHome model homeMsg =
     let
         ( nextHomeModel, homeCmd ) =
@@ -75,15 +80,17 @@ updateHome model homeMsg =
     in
         ( { model | homeModel = nextHomeModel }
         , Cmd.map HomeMsg homeCmd
+        , NoUpdate
         )
 
 
-updateLogin : Model -> Login.Types.Msg -> ( Model, Cmd Msg )
+updateLogin : Model -> Login.Types.Msg -> ( Model, Cmd Msg, GlobalUpdate )
 updateLogin model loginMsg =
     let
-        ( nextLoginModel, loginCmd ) =
+        ( nextLoginModel, loginCmd, globalUpdate ) =
             Login.State.update loginMsg model.loginModel
     in
         ( { model | loginModel = nextLoginModel }
         , Cmd.map LoginMsg loginCmd
+        , globalUpdate
         )

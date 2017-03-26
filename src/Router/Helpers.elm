@@ -2,8 +2,10 @@ module Router.Helpers exposing (..)
 
 import Navigation exposing (Location)
 import UrlParser as Url exposing ((</>))
+import String exposing (isEmpty)
+
 import Router.Types exposing (Route(..), Redirect(..))
-import Login.Types
+import App.Types exposing (Global)
 
 
 
@@ -33,12 +35,12 @@ parseLocation location =
 
 
 
-loginGuard : Login.Types.Model -> Route -> Redirect
-loginGuard model route = 
+loginGuard : Global -> Route -> Redirect
+loginGuard global route = 
     case route of
         LoginRoute -> Stay route
 
-        _ -> if not model.loginSucces then
+        _ -> if isEmpty global.jwtToken then
                 Redirected LoginRoute
              else 
                 Stay route

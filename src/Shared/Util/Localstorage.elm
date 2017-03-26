@@ -1,12 +1,11 @@
 port module Shared.Util.Localstorage exposing (..)
 
-import Shared.Globals as Globals
-
 type alias StorageData = 
     { 
         key: String,
         value: String
     }
+
 
 createStorageData : String -> String -> StorageData
 createStorageData key value =
@@ -22,12 +21,8 @@ port retrieve : String -> Cmd msg
 
 
 -- port for listening for results from JavaScript
-port value : (String -> msg) -> Sub msg
+port loadLocalstorage : (String -> msg) -> Sub msg
 
-
-subscriptions : Globals.Variables -> Sub Msg
-subscriptions variables =
-    suggestions Suggest
 
 
 

@@ -12,7 +12,7 @@ var _user$project$Shared_Util_Localstorage$retrieve = _elm_lang$core$Native_Plat
 	function (v) {
 		return v;
 	});
-var _user$project$Shared_Util_Localstorage$suggestions = _elm_lang$core$Native_Platform.incomingPort('suggestions', _elm_lang$core$Json_Decode$string);
+var _user$project$Shared_Util_Localstorage$loadLocalstorage = _elm_lang$core$Native_Platform.incomingPort('loadLocalstorage', _elm_lang$core$Json_Decode$string);
 var _user$project$Shared_Util_Localstorage$StorageData = F2(
 	function (a, b) {
 		return {key: a, value: b};

@@ -1,60 +1,92 @@
 var _user$project$App_State$subscriptions = function (model) {
-	return _elm_lang$core$Platform_Sub$none;
+	return _elm_lang$core$Platform_Sub$batch(
+		{
+			ctor: '::',
+			_0: _user$project$Shared_Util_Localstorage$loadLocalstorage(_user$project$App_Types$LoadLocalstorage),
+			_1: {ctor: '[]'}
+		});
 };
+var _user$project$App_State$updateGlobal = F2(
+	function (global, globalUpdate) {
+		var _p0 = globalUpdate;
+		if (_p0.ctor === 'UpdateJwt') {
+			return _elm_lang$core$Native_Utils.update(
+				global,
+				{jwtToken: _p0._0});
+		} else {
+			return global;
+		}
+	});
 var _user$project$App_State$updateRouter = F2(
 	function (model, routerMsg) {
-		var _p0 = model.appState;
-		if (_p0.ctor === 'Ready') {
-			var _p1 = A2(_user$project$Router_State$update, routerMsg, _p0._0);
-			var nextRouterModel = _p1._0;
-			var routerCmd = _p1._1;
+		var _p1 = model.appState;
+		if (_p1.ctor === 'Ready') {
+			var _p3 = _p1._0;
+			var _p2 = A3(_user$project$Router_State$update, _p3, routerMsg, _p1._1);
+			var nextRouterModel = _p2._0;
+			var routerCmd = _p2._1;
+			var globalUpdate = _p2._2;
+			var nextGlobal = A2(_user$project$App_State$updateGlobal, _p3, globalUpdate);
 			return {
 				ctor: '_Tuple2',
 				_0: _elm_lang$core$Native_Utils.update(
 					model,
 					{
-						appState: _user$project$App_Types$Ready(nextRouterModel)
+						appState: A2(_user$project$App_Types$Ready, nextGlobal, nextRouterModel)
 					}),
 				_1: A2(_elm_lang$core$Platform_Cmd$map, _user$project$App_Types$RouterMsg, routerCmd)
 			};
 		} else {
-			return _elm_lang$core$Native_Utils.crashCase(
-				'App.State',
-				{
-					start: {line: 34, column: 5},
-					end: {line: 45, column: 118}
-				},
-				_p0)('Ooops. We got a sub-component message even though it wasn\'t supposed to be initialized?!?!?');
+			var initGlobal = {jwtToken: _p1._0};
+			var _p4 = A2(_user$project$Router_State$init, initGlobal, model.location);
+			var initRouterModel = _p4._0;
+			var routerCmd = _p4._1;
+			return {
+				ctor: '_Tuple2',
+				_0: _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						appState: A2(_user$project$App_Types$Ready, initGlobal, initRouterModel)
+					}),
+				_1: A2(_elm_lang$core$Platform_Cmd$map, _user$project$App_Types$RouterMsg, routerCmd)
+			};
 		}
 	});
 var _user$project$App_State$update = F2(
 	function (msg, model) {
-		var _p3 = msg;
-		switch (_p3.ctor) {
+		var _p5 = msg;
+		switch (_p5.ctor) {
 			case 'UrlChange':
-				var _p4 = _p3._0;
+				var _p6 = _p5._0;
 				return A2(
 					_user$project$App_State$updateRouter,
 					_elm_lang$core$Native_Utils.update(
 						model,
-						{location: _p4}),
-					_user$project$Router_Types$UrlChange(_p4));
+						{location: _p6}),
+					_user$project$Router_Types$UrlChange(_p6));
 			case 'RouterMsg':
-				return A2(_user$project$App_State$updateRouter, model, _p3._0);
+				return A2(_user$project$App_State$updateRouter, model, _p5._0);
+			case 'LoadLocalstorage':
+				return A2(
+					_user$project$App_State$updateRouter,
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							appState: _user$project$App_Types$NotReady(_p5._0)
+						}),
+					_user$project$Router_Types$NoOp);
 			default:
 				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 		}
 	});
-var _user$project$App_State$init = function (location) {
-	var _p5 = _user$project$Router_State$init(location);
-	var initRouterModel = _p5._0;
-	var routerCmd = _p5._1;
-	return {
-		ctor: '_Tuple2',
-		_0: {
-			appState: _user$project$App_Types$Ready(initRouterModel),
+var _user$project$App_State$init = F2(
+	function (flags, location) {
+		var initModel = {
+			appState: _user$project$App_Types$NotReady(flags.jwtToken),
 			location: location
-		},
-		_1: A2(_elm_lang$core$Platform_Cmd$map, _user$project$App_Types$RouterMsg, routerCmd)
-	};
-};
+		};
+		return A2(
+			_user$project$App_State$update,
+			_user$project$App_Types$RouterMsg(_user$project$Router_Types$NoOp),
+			initModel);
+	});

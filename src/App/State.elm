@@ -2,20 +2,21 @@ module App.State exposing (..)
 
 import Navigation exposing (Location)
 
-import App.Types exposing (Model, Msg(..), AppState(..))
+import App.Types exposing (Model, Msg(..), AppState(..), Flags, Global, GlobalUpdate(..))
 import Router.Types
 import Router.State
+import Shared.Util.Localstorage as Localstorage
 
-init : Location -> ( Model, Cmd Msg )
-init location =
+init : Flags -> Location -> ( Model, Cmd Msg )
+init flags location =
     let 
-        (initRouterModel, routerCmd) = Router.State.init location
-    in
-        ( { appState = Ready initRouterModel
-        , location = location
-        }
-        , Cmd.map RouterMsg routerCmd
-        )
+        initModel = 
+            { appState = NotReady flags.jwtToken
+            , location = location
+            }
+    in 
+        update (RouterMsg Router.Types.NoOp) initModel
+
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
@@ -26,25 +27,56 @@ update msg model =
         RouterMsg routerMsg ->
             updateRouter model routerMsg
 
+        LoadLocalstorage ls ->
+            updateRouter { model | appState = NotReady ls } Router.Types.NoOp
+
         NoOp -> (model, Cmd.none)
 
 
 updateRouter : Model -> Router.Types.Msg -> ( Model, Cmd Msg )
 updateRouter model routerMsg =
     case model.appState of
-        Ready routerModel ->
+        Ready global routerModel ->
             let
-                ( nextRouterModel, routerCmd ) =
-                    Router.State.update routerMsg routerModel
+
+                ( nextRouterModel, routerCmd, globalUpdate ) =
+                    Router.State.update global routerMsg routerModel
+
+                nextGlobal =
+                    updateGlobal global globalUpdate
+
             in
-                ( { model | appState = Ready nextRouterModel }
+                ( { model | appState = Ready nextGlobal nextRouterModel }
                 , Cmd.map RouterMsg routerCmd
                 )
 
-        NotReady ->
-            Debug.crash "Ooops. We got a sub-component message even though it wasn't supposed to be initialized?!?!?"
+        NotReady jwtToken ->
+            let
+                initGlobal =
+                    { jwtToken = jwtToken
+                    }
+
+                ( initRouterModel, routerCmd ) =
+                    Router.State.init initGlobal model.location
+            in
+                ( { model | appState = Ready initGlobal initRouterModel }
+                , Cmd.map RouterMsg routerCmd
+                )
+
+
+updateGlobal : Global -> GlobalUpdate -> Global
+updateGlobal global globalUpdate =
+    case globalUpdate of
+        UpdateJwt jwt ->
+            { global | jwtToken = jwt }
+
+        NoUpdate ->
+            global
 
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.none
+    Sub.batch 
+    [
+        Localstorage.loadLocalstorage LoadLocalstorage
+    ]

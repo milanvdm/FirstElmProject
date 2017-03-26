@@ -21,6 +21,7 @@ type Msg
     = UrlChange Location
     | HomeMsg Home.Types.Msg
     | LoginMsg Login.Types.Msg
+    | NoOp
 
 type Redirect
     = Redirected Route
